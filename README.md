@@ -64,7 +64,7 @@ Written in Python. Demonstrates the following spyware concepts:
 | Process concealment | **Redacted** |
 | C2 endpoint | **Redacted** |
  
-> **Binary not included.** The `.exe` is excluded from this repository intentionally.
+> **Binary not included.** The `.exe` is excluded from this repository intentionally. The download button in the deployed demo serves a .txt file in place of the actual binary, with a message explaining the omission. The original .exe is not included in this repository.
  
 ---
  
