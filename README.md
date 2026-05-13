@@ -18,11 +18,21 @@ The goal was to understand the full attack lifecycle, not to create a deployable
 ## Project Structure
  
 ```
-spyware-attack-chain-demo/
-├── website/          # Fake delivery site (HTML/CSS/JS)
-├── server/           # C2 TCP server (receive & log exfiltrated data)
-├── client/           # Spyware source (redacted — see below)
-│   └── spyware.py
+main/
+├── data/                         # data captured by spyware
+├── static/
+│   └── assets/
+│   │   └── hero-3d-DiO74YaU.jpg
+│   │   ├── index-5LgWr_zl.js     # js file
+│   │   ├── index-6vMSOtdn.css    # css file
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── logs.html
+│   ├── placeholder.svg
+│   ├── robots.txt   
+├── tcp-server/
+│   └── tcp-server.py             # tcp endpoint for data receiving
+├──  web-server.py
 ├── DISCLAIMER.md
 └── README.md
 ```
@@ -78,4 +88,4 @@ Pillow
  
 ## Course Context
  
-This was developed as a project at VIT University, 2025.  
+This was developed as a project at VIT University in 2025.  
